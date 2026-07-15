@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ransomware Lock</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #000; color: #fff; font-family: Arial, sans-serif; }
+        .container { text-align: center; }
+        .container h1 { font-size: 2em; }
+        .container p { font-size: 1.2em; }
+        .container input { padding: 10px; font-size: 1.2em; }
+        .container button { padding: 10px 20px; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your files have been encrypted.</h1>
+        <p>Enter the unlock code to decrypt your files.</p>
+        <input type="text" id="unlockCode" placeholder="Enter unlock code">
+        <button onclick="unlock()">Unlock</button>
+    </div>
+    <script>
+        function unlock() {
+            const code = document.getElementById('unlockCode').value;
+            if (code === '1048') {
+                alert('Your files are unlocked!');
+                // Add code to decrypt files here
+                window.location.href = 'unlock.html';
+            } else {
+                alert('Incorrect unlock code!');
+            }
+        }
+    </script>
+</body>
+</html>
