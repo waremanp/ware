@@ -1,27 +1,70 @@
-<script>
-    function unlock() {
-        const code = document.getElementById('unlockCode').value;
-        
-        // Send code to server to check
-        fetch('/unlock', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ code: code })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // If correct, go to unlock.html
-                window.location.href = 'unlock.html';
-            } else {
-                // If incorrect, show alert
-                alert('Incorrect unlock code!');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ransomware Lock</title>
+    <style>
+        body { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+            background-color: #000; 
+            color: #fff; 
+            font-family: Arial, sans-serif; 
+        }
+        .container { text-align: center; }
+        .container h1 { font-size: 2em; }
+        .container p { font-size: 1.2em; }
+        .container input { padding: 10px; font-size: 1.2em; }
+        .container button { padding: 10px 20px; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your files have been encrypted.</h1>
+        <p>Enter the unlock code to decrypt your files.</p>
+        <input type="text" id="unlockCode" placeholder="Enter unlock code">
+        <button onclick="unlock()">Unlock</button>
+    </div>
+    <script>
+        function unlock() {
+            const code = document.getElementById('unlockCode').value;
+            
+            if (!code) {
+                alert('Please enter a code!');
+                return;
             }
-        })
-        .catch(error => {
-            alert('Error contacting server.');
-        });
-    }
-</script>
+
+            // Send code to server to check
+            fetch('/unlock', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ code: code })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    // If correct, go to unlock.html
+                    window.location.href = 'unlock.html';
+                } else {
+                    // If incorrect, show alert
+                    alert('Incorrect unlock code!');
+                }
+            })
+            .catch(error => {
+                alert('Error contacting server: ' + error.message);
+            });
+        }
+    </script>
+</body>
+</html>
