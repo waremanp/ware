@@ -1,0 +1,4 @@
+Android Studio
+Android SDK
+Gradle build system
+Java/Kotlin dependencies defined in build.gradle
