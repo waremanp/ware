@@ -1,4 +1,5 @@
-Android Studio
-Android SDK
-Gradle build system
-Java/Kotlin dependencies defined in build.gradle
+flask==3.0.3
+gunicorn==23.0.0
+requests==2.32.3
+numpy>=1.21.0
+pandas==2.2.2
